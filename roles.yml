@@ -1,0 +1,46 @@
+---
+
+- name: install webserver (apache2)
+  hosts: webservers
+  gather_facts: true
+  become: true
+  become_user: root
+  become_method: sudo
+  vars_files:
+    - vars/default.yml
+  roles:
+    - install_apache2
+#---------------------------------------
+- name: install database
+  hosts: databases
+  gather_facts: true
+  become: true
+  become_user: root
+  become_method: sudo
+  vars_files:
+    - vars/default.yml
+  roles:
+    - install_mysql
+#---------------------------------------
+- name: install wordpress
+  hosts: cms
+  gather_facts: true
+  become: true
+  become_user: root
+  become_method: sudo
+  vars_files:
+    - vars/default.yml  
+  roles:
+    - install_wordpress
+#---------------------------------------
+- name: security
+  hosts: workstation-ansible-tests
+  gather_facts: true
+  become: true
+  become_user: root
+  become_method: sudo
+  vars_files:
+    - vars/default.yml
+  roles:
+    - firewall
+...

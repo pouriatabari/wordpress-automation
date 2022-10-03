@@ -1,0 +1,33 @@
+---
+- name: Install HTTP Packages
+  yum: name=httpd update_cache=yes state=latest
+ 
+- name: Start httpd service
+  systemd: name=httpd state=started enabled=yes
+ 
+- name: Create Apache Document Root
+  file:
+    path: "/var/www/{{ http_host }}"
+    state: directory
+    owner: "apache"
+    group: "apache"
+    mode: '0755'
+ 
+- name: Set up Apache VirtualHost
+  template:
+    src: "files/httpd.conf"
+    dest: "/etc/httpd/conf.d/{{ http_conf }}"
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
+
+- name: Install PHP Remi Repository
+  command: rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm 
+  command: yum -y install epel-release  
+ 
+- name: Enable PHP Remi Repository
+  command: yum -y --enablerepo=remi-php72 install php
+ 
+- name: Install PHP Extensions
+  yum: name={{ item }} update_cache=yes state=latest
+  loop: "{{ php_modules }}"

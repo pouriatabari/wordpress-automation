@@ -1,0 +1,21 @@
+---
+
+#PHP Settings
+#---------------------
+php_modules: [ ' php72-php.x86_64 ', 'php-curl', ' php72-php-common.x86_64 ' , ' php72-php-gd.x86_64 ', ' php72-php-mbstring.x86_64 ', ' php72-php-xml.x86_64 ', ' php72-php-xmlrpc.x86_64 ', ' php72-php-soap.x86_64 ', ' php72-php-intl.x86_64 ', ' php72-php-pecl-zip.x86_64 ' ]
+
+#---------------------
+#MySQL Settings
+#---------------------
+mysql_root_password: "root"
+mysql_db: "root_db"
+mysql_user: "wpuser"
+mysql_password: "wpuser"
+
+#---------------------
+#HTTP Settings
+#---------------------
+http_host: "localdomain"
+http_conf: "localdomain.conf"
+http_port: "80"
+...
